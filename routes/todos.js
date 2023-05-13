@@ -8,3 +8,9 @@ const {createTodo} = require("../controllers/createTodo");
 router.post("/createTodo", createTodo);
 
 module.exports = router;
+
+// postman: http://localhost:3000/api/v1/createTodo
+// {
+//     "title": "Vibha Sahu",
+//     "description": "MERN Stack developer"
+// }

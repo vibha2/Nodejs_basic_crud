@@ -10,7 +10,7 @@ exports.createTodo = async(req,res) => {
         const { title, description } = req.body;
         //create a new todo object & insert in DB
         const response = await Todo.create({title,description});
-        //end a json response with success flag
+        //send a json response with success flag
         res.status(200).json(
             {
                 success:true,

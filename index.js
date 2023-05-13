@@ -1,4 +1,5 @@
 // npm run dev - to start
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
@@ -7,7 +8,7 @@ const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
-//middleware to parse jsn request body
+//middleware to parse json request body
 app.use(express.json());
 
 //import routes for Todo Api
@@ -18,12 +19,20 @@ app.use("/api/v1", todoRoutes);
 
 //start server
 app.listen(PORT, () => {
-    console.log("Server started successfully at ${PORT} ");
+    console.log(`Server started successfully at ${PORT} `);
 })
 
 //connect to the database
-const dbConnect = require("./config/database");
-// dbConnect();
+mongoose.connect(process.env.DATABASE_URL ,{
+    useNewUrlParser:true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("db connection successfully"))
+.catch( (error) => {
+    console.log("Issue in DB Connection");
+    console.error(error.message);
+    process.exit(1);
+});
 
 //default route
 app.get("/", (req, res) =>
