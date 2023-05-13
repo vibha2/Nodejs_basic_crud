@@ -3,19 +3,24 @@ const Todo = require("../models/Todo")
 
 //define router handler
 
-exports.createTodo = async(req,res) => {
+exports.updateTodo = async(req,res) => {
 
     try{
-        //extract title & decription from model
-        const { title, description } = req.body;
-        //create a new todo object & insert in DB ,create = insert in mongoose
-        const response = await Todo.create({title,description});
-        //send a json response with success flag
+        const {id} =  req.params;
+        const {title, description } = req.body;
+
+        const todo = await Todo.findByIdAndUpdate(
+            //konsi id me update krna hai
+            {_id: id},
+            //kya update krna hai
+            {title, description, updatedAt: Date.now()},
+        )
+
         res.status(200).json(
             {
                 success:true,
-                data: response,
-                message: "Entry Created Successfully"
+                data: todo,
+                message: `Updated Successfully`,
             }
         );
 
