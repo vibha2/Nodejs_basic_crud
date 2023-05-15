@@ -1,3 +1,4 @@
+//using this, you'll get to know, how crud operation works
 // npm run dev - to start
 const mongoose = require("mongoose");
 const express = require("express");
